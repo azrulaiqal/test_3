@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Endless Love</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+            overflow: hidden;
+            color: #fff;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        button {
+            background-color: #ff6f61;
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            margin-top: 30px;
+        }
+        button:hover {
+            background-color: #ff3d3d;
+            transform: scale(1.1);
+        }
+
+        /* Message Box */
+        .message-box {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            height: 200px;
+            margin: 20px auto;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .message-content {
+            font-size: 1.5em;
+            color: #fff;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        /* Heart Explosion */
+        .explosion {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+        .heart-particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            transform: translate(0, 0) rotate(45deg);
+            animation: explode 1s ease-out forwards;
+        }
+        .heart-particle::before,
+        .heart-particle::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: red;
+            border-radius: 50%;
+        }
+        .heart-particle::before {
+            top: -10px;
+            left: 0;
+        }
+        .heart-particle::after {
+            left: 10px;
+            top: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes explode {
+            0% {
+                transform: scale(1) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(3) translate(var(--x), var(--y)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Title -->
+    <h1>TO MY SAYANG NURUL AIN I GIVE THIS TO YOU</h1>
+
+    <!-- Message Box -->
+    <div class="message-box">
+        <div class="message-content" id="message">
+            TEKAN TAU BUTTON BAWAH NI!
+        </div>
+    </div>
+
+    <!-- Button -->
+    <button onclick="triggerLove()">TEKAN SINI!!</button>
+
+    <!-- Heart Explosion -->
+    <div class="explosion" id="explosion-container"></div>
+
+    <script>
+        // Array of sweet messages
+        const messages = [
+            "Awak umpama bintang yang menerangi malam saya 🌟",
+            "Awak juga umpama sebahagian dari hidup saya 💓",
+            "Apa jadi sekalipun, awak tetap saya pilih ❤️",
+            "di dalam mata awak, saya terlihat masa depan kita ✨",
+            "awaklah wanita yang paling saya cintai 🗺️",
+            "saya sayang awak dan tidak akan berkurang!! ♾️"
+        ];
+
+        function triggerLove() {
+            // Show heart explosion effect
+            showExplosion();
+
+            // Update message box with a random message
+            const messageElement = document.getElementById('message');
+            const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+            messageElement.innerText = randomMessage; // Display the message
+        }
+
+        function showExplosion() {
+            // Create an explosion of hearts
+            const explosionContainer = document.getElementById('explosion-container');
+            explosionContainer.innerHTML = ''; // Clear any previous hearts
+            explosionContainer.style.display = 'block';
+
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('heart-particle');
+                const angle = Math.random() * 2 * Math.PI;
+                const radius = Math.random() * 100 + 50; // Random distance
+                particle.style.setProperty('--x', `${Math.cos(angle) * radius}px`);
+                particle.style.setProperty('--y', `${Math.sin(angle) * radius}px`);
+                explosionContainer.appendChild(particle);
+
+                // Remove the particle after animation ends
+                setTimeout(() => {
+                    particle.remove();
+                }, 1000);
+            }
+        }
+    </script>
+</body>
+</html>
